@@ -1,0 +1,50 @@
+output:
+  - failure
+  - summary
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: Shell
+      glob: "*.{bash,sh}"
+      run: bin/shellcheck --shell=bash --enable=all --severity=style {staged_files}
+      stage_fixed: true
+
+    - name: YAML
+      glob: "*.{yml,yaml}"
+      exclude: pnpm-lock.yaml
+      run: bin/yamlfmt -conf .yamlfmt.yaml {staged_files}
+      stage_fixed: true
+
+    - name: TOML
+      glob: "*.toml"
+      run: bin/taplo format
+      stage_fixed: true
+
+    - name: JavaScript
+      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,json5}"
+      run: |
+        bin/oxfmt --no-error-on-unmatched-pattern {staged_files}
+      stage_fixed: true
+
+    - name: Python
+      glob: "*.py"
+      group:
+        jobs:
+          - name: format
+            run: bin/ruff format {staged_files}
+            stage_fixed: true
+          - name: lint
+            run: bin/ruff check --fix {staged_files}
+            stage_fixed: true
+
+    - name: Rust
+      glob: "*.rs"
+      group:
+        jobs:
+          - name: format
+            run: cargo fmt --all
+            stage_fixed: true
+          - name: lint
+            run: cargo clippy --fix --allow-dirty -- --deny warnings
+            stage_fixed: true

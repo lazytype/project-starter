@@ -1,0 +1,38 @@
+{
+  "editor.formatOnSave": true,
+  "editor.indentSize": "tabSize",
+  "editor.tabSize": 2,
+  "files.associations": {
+    ".pkg": "toml",
+    "*.json5": "jsonc",
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+  },
+  "evenBetterToml.taplo.configFile.path": ".taplo.toml",
+  "oxc.fmt.experimental": true,
+  "ruff.path": ["${workspaceFolder}/bin/ruff"],
+  "ruff.configuration": "${workspaceFolder}/.ruff.toml",
+  "filewatcher.commands": [
+    {
+      "cmd": "${workspaceRoot}/bin/yamlfmt -conf ${workspaceRoot}/.yamlfmt.yaml ${file}",
+      "match": "\\.(yml|yaml)$",
+      "event": "onFileChange",
+    },
+  ],
+}
