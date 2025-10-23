@@ -1,0 +1,5 @@
+__pycache__
+.DS_Store
+.jj
+node_modules
+target
